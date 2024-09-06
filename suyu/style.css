@@ -1,0 +1,18 @@
+table {
+    width: 90%;
+    margin-inline: auto;
+    border: 0;
+}
+
+td:first-child {
+    width: 260px;
+    vertical-align: top;
+}
+
+td:last-child {
+    text-align: center;
+}
+
+select {
+    width: 180px;
+}
