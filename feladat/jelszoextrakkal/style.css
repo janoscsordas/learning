@@ -1,0 +1,46 @@
+#pass, #pas2
+{
+    padding          : 4px          ;
+}
+
+#szem
+{
+    position         : relative     ;
+    top              : 5px          ;
+    left             :-32px         ;
+}
+
+#erosseg
+{
+    margin           : 4px 0        ;
+    width            : 144px        ;
+    height           : 16px         ;
+    background-color : #AAA         ;
+    border-radius    : 4px          ;
+    text-align       : center       ;
+}
+
+#erosseg span
+{
+    display          : inline-block ;
+    margin           : 5px 1px      ;
+    width            : 15px         ;
+    height           : 6px          ;
+    background-color : #EEE         ;
+}
+
+#pipa
+{
+    position         : relative     ;
+    top              : 5px          ;
+    left             :-32px         ;
+
+    filter           : grayscale(1) ;
+    opacity          : .25          ;
+}
+
+#figyelmeztetes
+{
+    font-weight      : bold         ;
+    color            : red          ;
+}
