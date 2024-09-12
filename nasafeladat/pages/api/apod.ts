@@ -17,8 +17,7 @@ export default async function handler(
   if (!date) {
     return res.status(400).json({ error: 'Dátum szükséges' });
   }
-
-  const apiKey = 'YOUR_NASA_API_KEY'; // Cseréld ki a saját API kulcsodra
+  
   const apiUrl = `http://localhost:3001/api/date=${date}`;
 
   try {
