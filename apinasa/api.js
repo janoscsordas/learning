@@ -50,7 +50,7 @@ app.get("/api/date=:apodDate", async (req, res) => {
 
     const foundDate = apiData.find(d => d.date === apodDate)
 
-    if (foundDate.length === 0 || !foundDate) {
+    if (!foundDate) {
         return res.status(500).json({error: { message: "A megadott dátum alapján nem található adat." }})
     }
 
