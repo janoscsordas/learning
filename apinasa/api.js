@@ -5,7 +5,7 @@ import validator from "validator"
 import { apiData } from "./data.js"
 
 // ha szükséges, megváltoztathatod a portot
-const PORT = 3000
+const PORT = 3001
 
 function validateDate(date) {
     if (!validator.isDate(date, { format: "YYYY-MM-DD" })) {

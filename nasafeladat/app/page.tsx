@@ -1,4 +1,5 @@
 import Image from "next/image"
+import ApodForm from "./ApodForm"
 
 export type APOD = {
     date: string
@@ -46,7 +47,7 @@ export default async function Home() {
             <section className="mt-16">
                 <h2 className="text-center text-2xl font-semibold">Kérj le egy random napi képet</h2>
                 <p className="text-center text-sm">Az alábbi form-ban adhatja meg a kívánt kép dátumát.</p>
-
+                    <ApodForm />
                 <div className="flex gap-6 my-10 items-center">
                 </div>
             </section>
