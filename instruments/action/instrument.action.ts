@@ -1,5 +1,6 @@
 "use server"
 
+import axios from "axios"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
@@ -33,16 +34,14 @@ export async function createInstrument(prevState: State, formData: FormData) {
         return { errors: validatedFields.error.flatten().fieldErrors };
     }
 
-    const result = await fetch("https://kodbazis.hu/api/instruments", {
-        method: "POST",
+    const result = await axios.post("https://kodbazis.hu/api/instruments", validatedFields.data, {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(validatedFields.data),
-        credentials: "include",
+        withCredentials: true,
     })
 
-    if (!result.ok) {
+    if (result.status !== 200 && result.status !== 201) {
         return { message: 'Hiba történt a hangszer hozzáadása közben' };
     }
 

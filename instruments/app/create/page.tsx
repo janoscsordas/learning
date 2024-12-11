@@ -2,31 +2,46 @@
 
 import { createInstrument, State } from "@/action/instrument.action";
 import { Button, Text, TextField } from "@radix-ui/themes";
+import axios from "axios";
 import { Link } from "lucide-react";
-import { useActionState } from "react";
 
 export default function CreatePage() {
-    const initialState: State = { message: null, errors: {} };
-    const [state, formAction] = useActionState(createInstrument, initialState);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const form = e.currentTarget;
+        const name = form.guitarName.value;
+        const price = form.price.value;
+        const quantity = form.quantity.value;
+        const imageURL = form.imageURL.value;
+
+        console.log(name, price, quantity, imageURL);
+
+        const response = await axios.post("https://kodbazis.hu/api/instruments", JSON.stringify({ name, price, quantity, imageURL }), { withCredentials: true });
+
+        if (response.status !== 200 && response.status !== 201) {
+            throw new Error(response.statusText || "Hiba történt a hangszer hozzáadása Sorosban");
+        }
+
+        form.reset();
+    }
 
     return (
         <section className="flex justify-center items-center flex-col min-h-[calc(100dvh-64px)]">
             <Text size="5" weight="medium" className="mb-4">Hangszer hozzáadása</Text>
-            <form className="border w-1/4 rounded-lg shadow-lg p-5" action={formAction}>
+            <form className="border w-1/4 rounded-lg shadow-lg p-5" onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="name">
                         <Text size="3" weight="medium">Hangszer neve:</Text>
                     </label>
                     <TextField.Root 
-                        name="name" 
-                        id="name"
+                        name="guitarName" 
+                        id="guitarName"
                         placeholder="Hangszer neve" 
                         type="text"
                     />
                 </div>
-                {state.errors?.name && state.errors.name.map((error, index) => (
-                    <p key={index} className="text-red-500">{error}</p>
-                ))}
                 <div className="mb-4">
                     <label htmlFor="price">
                         <Text size="3" weight="medium">Ár:</Text>
@@ -38,9 +53,6 @@ export default function CreatePage() {
                         type="number"
                     />
                 </div>
-                {state.errors?.price && state.errors.price.map((error, index) => (
-                    <p key={index} className="text-red-500">{error}</p>
-                ))}
                 <div className="mb-4">
                     <label htmlFor="quantity">
                         <Text size="3" weight="medium">Hangszer mennyiség:</Text>
@@ -52,9 +64,6 @@ export default function CreatePage() {
                         type="number"
                     />
                 </div>
-                {state.errors?.quantity && state.errors.quantity.map((error, index) => (
-                    <p key={index} className="text-red-500">{error}</p>
-                ))}
                 <div className="mb-4">
                     <label htmlFor="imageURL">
                         <Text size="3" weight="medium">Hangszer kép URL:</Text>
@@ -70,10 +79,6 @@ export default function CreatePage() {
                         </TextField.Slot>
                     </TextField.Root>
                 </div>
-                {state?.errors?.imageURL && state?.errors?.imageURL.map((error, index) => (
-                    <p key={index} className="text-red-500">{error}</p>
-                ))}
-                {state?.message && <p className="text-red-500">{state.message}</p>}
                 <Button color="plum" type="submit" className="w-full">
                     <Text size="3" weight="medium">Mentés</Text>
                 </Button>
